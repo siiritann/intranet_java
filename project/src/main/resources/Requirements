@@ -25,7 +25,7 @@ Column name        Column type
 - get my profile
 - update my profile
 - delete my account
-
+- change password
 
 FE
 
@@ -37,6 +37,7 @@ FE
 - view my profile
 - modify my profile
 - delete my account
+- change password
 
 
 2. Views for regular user
@@ -44,6 +45,7 @@ FE
 - view my profile
 - modify my profile
 - delete my account
+- change password
 
 
 DESIRED FUNCTIONALITY
