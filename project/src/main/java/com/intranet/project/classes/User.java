@@ -7,7 +7,7 @@ public class User {
     private BigInteger id;
     private String username;
     private String password;
-    private boolean is_admin = false;
+    private boolean isAdmin = false;
     private String phone;
     private String email;
 
@@ -45,12 +45,12 @@ public class User {
         this.password = password;
     }
 
-    public boolean isIs_admin() {
-        return is_admin;
+    public boolean isIsAdmin() {
+        return isAdmin;
     }
 
-    public void setIs_admin(boolean is_admin) {
-        this.is_admin = is_admin;
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     public String getPhone() {
