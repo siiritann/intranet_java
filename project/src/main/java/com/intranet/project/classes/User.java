@@ -1,7 +1,10 @@
 package com.intranet.project.classes;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+
 public class User {
-    private int id;
+    private BigInteger id;
     private String username;
     private String password;
     private boolean is_admin = false;
@@ -18,11 +21,11 @@ public class User {
         this.email = email;
     }
 
-    public int getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
