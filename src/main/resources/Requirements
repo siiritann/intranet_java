@@ -1,0 +1,55 @@
+Initial ideas
+
+BE
+
+1. Tables
+1.1 user
+ Column name        Column type
+    id              int
+    username        text
+    password        text
+    is_admin        boolean
+    phone           text
+    email           text
+
+1.2 session
+Column name        Column type
+    id              int
+    user_id         int
+    token           text
+
+2. Services
+- create account
+- get list of users
+- modify user
+- get my profile
+- update my profile
+- delete my account
+- change password
+
+FE
+
+1. Views for admin
+- welcome page
+- list of users
+- user modify
+- add new user
+- view my profile
+- modify my profile
+- delete my account
+- change password
+
+
+2. Views for regular user
+- welcome page
+- view my profile
+- modify my profile
+- delete my account
+- change password
+
+
+DESIRED FUNCTIONALITY
+- add photo to user profile'
+- newsfeed: view, post
+- private messages
+- get list of documents
