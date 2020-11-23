@@ -1,34 +1,35 @@
 package com.intranet.project.classes;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 
 public class Post {
-    private int id;
-    private int userId;
+    private BigInteger id;
+    private BigInteger userId;
     private Timestamp date;
     private String heading;
     private String body;
 
-    public Post(int userId, String heading, String body) {
+    public Post(BigInteger userId, String heading, String body) {
         this.userId = userId;
         this.date = new Timestamp(System.currentTimeMillis());
         this.heading = heading;
         this.body = body;
     }
 
-    public int getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
-    public int getUserId() {
+    public BigInteger getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(BigInteger userId) {
         this.userId = userId;
     }
 
