@@ -1,16 +1,19 @@
-package com.intranet.project.classes;
+package com.intranet.project.repository.post;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
 
-public class Post {
+/**
+ * REPOSITORY POST ENTITY
+ */
+public class PostEntity {
     private BigInteger id;
     private BigInteger userId;
     private Timestamp date;
     private String heading;
     private String body;
 
-    public Post(BigInteger userId, String heading, String body) {
+    public PostEntity(BigInteger userId, String heading, String body) {
         this.userId = userId;
         this.date = new Timestamp(System.currentTimeMillis());
         this.heading = heading;
