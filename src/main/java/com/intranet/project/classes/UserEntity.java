@@ -3,7 +3,7 @@ package com.intranet.project.classes;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class User {
+public class UserEntity {
     private BigInteger id;
     private String username;
     private String password;
@@ -11,7 +11,7 @@ public class User {
     private String phone;
     private String email;
 
-    public User(String username, String password) {
+    public UserEntity(String username, String password) {
         this.username = username;
         this.password = password;
     }
