@@ -1,4 +1,4 @@
-package com.intranet.project.classes;
+package com.intranet.project.controller.user;
 
 
 public class UserCreation {
