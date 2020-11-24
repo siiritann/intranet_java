@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,4 +36,12 @@ public class UserRepository {
         return (Long) keyHolder.getKeys().get("id");
     }
 
+    // 2 - GET USER ID BY USERNAME
+    public Long getUserIdByUsername(String username){
+        String sql = "SELECT id FROM intranetuser WHERE username = :username";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("username", username);
+        Long id = jdbcTemplate.queryForObject(sql, paramMap, Long.class);
+        return id;
+    }
 }
