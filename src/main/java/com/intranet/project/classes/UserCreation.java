@@ -1,7 +1,5 @@
 package com.intranet.project.classes;
 
-import java.math.BigInteger;
-import java.util.Date;
 
 public class UserCreation {
     // User Response class for User creation
