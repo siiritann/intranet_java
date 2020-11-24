@@ -3,10 +3,9 @@ package com.intranet.project.controller;
 import com.intranet.project.controller.user.UserCreation;
 import com.intranet.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @CrossOrigin
@@ -17,10 +16,13 @@ public class UserController {
     private UserService userService;
 
 
-    // 1 - CREATE ACCOUNT
-    @PostMapping("/createuser")
+    @PostMapping("/create/user")
     public Long createUser(@RequestBody UserCreation userCreation){
         return userService.createUser(userCreation);
     }
 
+    @GetMapping("userslist")
+    public List getListOfUsers() {
+        return userService.getListOfUsers();
+    }
 }

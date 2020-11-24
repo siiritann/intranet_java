@@ -5,7 +5,7 @@ import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -14,7 +14,6 @@ public class UserService {
     private UserRepository userRepository;
 
 
-    // 1 - CREATE ACCOUNT
     public Long createUser(UserCreation userCreation){
         String username = userCreation.getUsername();
         String password = userCreation.getPassword();
@@ -22,4 +21,9 @@ public class UserService {
         UserEntity userEntity = new UserEntity(username, password, email);
         return userRepository.createUser(userEntity);
     }
+
+    public List getListOfUsers(){
+        return userRepository.getListOfUsers();
+    }
+
 }
