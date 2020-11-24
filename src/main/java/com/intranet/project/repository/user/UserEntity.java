@@ -1,4 +1,4 @@
-package com.intranet.project.classes;
+package com.intranet.project.repository.user;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
