@@ -13,9 +13,11 @@ public class PostEntity {
     private String heading;
     private String body;
 
-    public PostEntity(BigInteger userId, String heading, String body) {
+    public PostEntity(BigInteger id, BigInteger userId, Timestamp date, String heading, String body) {
+        this.id = id;
         this.userId = userId;
-        this.date = new Timestamp(System.currentTimeMillis());
+        //this.date = new Timestamp(System.currentTimeMillis());
+        this.date = date;
         this.heading = heading;
         this.body = body;
     }
