@@ -7,7 +7,7 @@ import java.util.Date;
 // User entity class for Repo use, with all info
 
 public class UserEntity {
-    private BigInteger id;
+    private Long id;
     private String username;
     private String password;
     // isAdmin is by default false, each user can be set to admin by the first admin
@@ -49,11 +49,11 @@ public class UserEntity {
         this.birthDate = birthDate;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
