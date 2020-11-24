@@ -2,23 +2,51 @@ package com.intranet.project.classes;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Date;
 
-public class User {
+// User entity class for Repo use, with all info
+
+public class UserEntity {
     private BigInteger id;
     private String username;
     private String password;
+    // isAdmin is by default false, each user can be set to admin by the first admin
     private boolean isAdmin = false;
-    private String phone;
     private String email;
+    private String firstName;
+    private String lastName;
+    private Date birthDate;
+    private String phone;
 
-    public User(String username, String password) {
+    public UserEntity(String username, String password, String email) {
+        // for user creation, needed fields
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
-    public void updateUser(String phone, String email) {
-        this.phone = phone;
-        this.email = email;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public BigInteger getId() {
@@ -45,7 +73,7 @@ public class User {
         this.password = password;
     }
 
-    public boolean isIsAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 
