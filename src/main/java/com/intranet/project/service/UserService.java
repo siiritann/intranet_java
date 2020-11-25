@@ -29,14 +29,14 @@ public class UserService {
     }
 
     public ViewUser viewUser(Long id) {
-        List<UserEntity> list = userRepository.viewUser(id);
-        String username = list.get(0).getUsername();
-        String password = list.get(0).getPassword();
-        String email = list.get(0).getEmail();
-        String firstname = list.get(0).getFirstName();
-        String lastname = list.get(0).getLastName();
-        Date birthdate = list.get(0).getBirthDate();
-        String phone = list.get(0).getPhone();
+        UserEntity userEntity = userRepository.viewUser(id);
+        String username = userEntity.getUsername();
+        String password = userEntity.getPassword();
+        String email = userEntity.getEmail();
+        String firstname = userEntity.getFirstName();
+        String lastname = userEntity.getLastName();
+        Date birthdate = userEntity.getBirthDate();
+        String phone = userEntity.getPhone();
         ViewUser viewUser = new ViewUser(username, password, email, firstname, lastname, birthdate, phone);
         return viewUser;
     }

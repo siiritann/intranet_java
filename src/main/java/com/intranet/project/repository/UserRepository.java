@@ -57,11 +57,12 @@ public class UserRepository {
         return usersList;
     }
 
-    public List<UserEntity> viewUser(Long id) {
+    public UserEntity viewUser(Long id) {
         String sql = "SELECT * FROM intranetuser WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
         List<UserEntity> list = jdbcTemplate.query(sql, paramMap, new UserRowMapper());
-        return list;
+        UserEntity userEntity = list.get(0);
+        return userEntity;
     }
 }
