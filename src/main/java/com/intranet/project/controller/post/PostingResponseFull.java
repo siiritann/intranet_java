@@ -24,7 +24,8 @@ public class PostingResponseFull {
         this.body = body;
     }
 
-    public PostingResponseFull(String username, Timestamp date, String heading, String body) {
+    public PostingResponseFull(Long id, String username, Timestamp date, String heading, String body) {
+        this.id = id;
         this.username = username;
         this.date = date;
         this.heading = heading;

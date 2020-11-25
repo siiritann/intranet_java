@@ -1,7 +1,6 @@
 package com.intranet.project.controller.post;
 
 import com.intranet.project.ResponseJSON;
-import com.intranet.project.controller.post.PostingResponseFull;
 import com.intranet.project.repository.post.PostingEntity;
 import com.intranet.project.service.PostingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +27,17 @@ public class PostingController {
         return postingService.getListOfPostings();
     }
 
+    @GetMapping("/user/{id}")
+    public List<PostingResponseFull> getUserPostings(@PathVariable("id") Long userId){
+        return postingService.getUserPostings(userId);
+    }
 
     @DeleteMapping("/delete")
     public ResponseJSON deletePostingById(@RequestBody PostingEntity postingEntity){
         return new ResponseJSON(postingService.deletePostingById(postingEntity.getId()));
     }
-
+    @DeleteMapping("/delete/userposts")
+    public void deleteUserPostings(@RequestBody PostingEntity postingEntity){
+        postingService.deleteUserPostings(postingEntity.getUserId());
+    }
 }
