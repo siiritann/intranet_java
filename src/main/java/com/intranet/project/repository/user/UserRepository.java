@@ -1,5 +1,6 @@
 package com.intranet.project.repository.user;
 
+import com.intranet.project.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -40,6 +41,18 @@ public class UserRepository {
         return id;
     }
 
+    public UserEntity getUserById(Long id){
+        String sql = "SELECT * FROM intranetuser WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        if (jdbcTemplate.query(sql, paramMap, new UserRowMapper()).size() > 0){
+            return jdbcTemplate.queryForObject(sql, paramMap, new UserRowMapper());
+        } else {
+            throw new NotFoundException("User not found");
+        }
+
+    }
+
     public String getUsernameById(Long id){
         String sql = "SELECT username FROM intranetuser WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
@@ -62,5 +75,20 @@ public class UserRepository {
         List<UserEntity> list = jdbcTemplate.query(sql, paramMap, new UserRowMapper());
         UserEntity userEntity = list.get(0);
         return userEntity;
+    }
+
+    public int updateUserPassword(Long id, String password){
+        String sql = "UPDATE intranetuser SET password = :password WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        paramMap.put("password", password);
+        return jdbcTemplate.update(sql, paramMap);
+    }
+
+    public int deleteUserById(Long id){
+        String sql = "DELETE FROM intranetuser WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        return jdbcTemplate.update(sql, paramMap);
     }
 }

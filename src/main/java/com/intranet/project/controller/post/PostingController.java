@@ -1,6 +1,6 @@
 package com.intranet.project.controller.post;
 
-import com.intranet.project.ResponseJSON;
+import com.intranet.project.controller.classes.ResponseJSON;
 import com.intranet.project.repository.post.PostingEntity;
 import com.intranet.project.service.PostingService;
 import org.springframework.beans.factory.annotation.Autowired;
