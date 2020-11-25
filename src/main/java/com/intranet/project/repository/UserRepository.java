@@ -1,5 +1,6 @@
 package com.intranet.project.repository;
 
+import com.intranet.project.controller.user.ViewUser;
 import com.intranet.project.repository.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -41,6 +42,14 @@ public class UserRepository {
         return id;
     }
 
+    public String getUsernameById(Long id){
+        String sql = "SELECT username FROM intranetuser WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        String username = jdbcTemplate.queryForObject(sql, paramMap, String.class);
+        return username;
+    }
+
     public List getListOfUsers(){
         String sql = "SELECT * FROM intranetuser";
         Map<String, Object> paramMap = new HashMap<>();
@@ -48,4 +57,11 @@ public class UserRepository {
         return usersList;
     }
 
+    public List<UserEntity> viewUser(Long id) {
+        String sql = "SELECT * FROM intranetuser WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        List<UserEntity> list = jdbcTemplate.query(sql, paramMap, new UserRowMapper());
+        return list;
+    }
 }
