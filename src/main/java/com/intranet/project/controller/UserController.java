@@ -7,21 +7,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @CrossOrigin
 @RestController
+@RequestMapping("user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
 
-    @PostMapping("/create/user")
+    @PostMapping("/create")
     public Long createUser(@RequestBody UserCreation userCreation){
         return userService.createUser(userCreation);
     }
 
-    @GetMapping("userslist")
+    @GetMapping("/list")
     public List getListOfUsers() {
         return userService.getListOfUsers();
     }
