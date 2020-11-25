@@ -36,7 +36,8 @@ public class PostingService {
         String heading = postingEntity.getHeading();
         String body = postingEntity.getBody();
         String username = userRepository.getUsernameById(userId);
-        return new PostingResponseFull(username, date, heading, body);
+        Long id = postingEntity.getId();
+        return new PostingResponseFull(id, username, date, heading, body);
     }
 
     public void createPosting(PostingResponseFull postingResponseFull) {
@@ -54,11 +55,27 @@ public class PostingService {
         return postingResponseFullList;
     }
 
-    public String deletePostingById(Long posting_id){
-        if(postingRepository.deletePostingById(posting_id) == 1){
+    public List<PostingResponseFull> getUserPostings(Long userId) {
+        List<PostingEntity> postingEntityList = postingRepository.getUserPostings(userId);
+        List<PostingResponseFull> postingResponseFullList = new ArrayList<>();
+        for(PostingEntity item: postingEntityList){
+            PostingResponseFull postingResponseFull = postingEntityToResponseFull(item);
+            postingResponseFullList.add(postingResponseFull);
+        }
+        return postingResponseFullList;
+    }
+
+
+    public String deletePostingById(Long postingId){
+        if(postingRepository.deletePostingById(postingId) == 1){
             return "Post removed";
         }
         return "Something went wrong";
+    }
+
+
+    public void deleteUserPostings(Long userId) {
+        postingRepository.deleteUserPostings(userId);
     }
 
 }
