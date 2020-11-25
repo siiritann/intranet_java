@@ -10,19 +10,19 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class IntranetExceptionHandler extends ResponseEntityExceptionHandler{
     @ExceptionHandler(InternalServerErrorException.class)
-    public ResponseEntity<Object> handleInternalServerErrorException(Exception e){
+    public ResponseEntity<Object> handleInternalServerErrorException(InternalServerErrorException e){
         return new ResponseEntity<>(new ErrorResponse(e.getMessage()),
                 new HttpHeaders(),
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<Object> handleBadRequestException(Exception e){
+    public ResponseEntity<Object> handleBadRequestException(BadRequestException e){
         return new ResponseEntity<>(new ErrorResponse(e.getMessage()),
                 new HttpHeaders(),
                 HttpStatus.BAD_REQUEST);
     }
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<Object> handleNotFoundException(Exception e){
+    public ResponseEntity<Object> handleNotFoundException(NotFoundException e){
         return new ResponseEntity<>(new ErrorResponse(e.getMessage()),
                 new HttpHeaders(),
                 HttpStatus.NOT_FOUND);
