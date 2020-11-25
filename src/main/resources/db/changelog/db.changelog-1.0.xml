@@ -53,6 +53,7 @@
             </column>
 
         </createTable>
+        
         <addForeignKeyConstraint baseTableName="post" baseColumnNames="user_id" constraintName="fk_post_intranetuser"
                                  referencedTableName="intranetuser"
                                  referencedColumnNames="id"
@@ -60,4 +61,30 @@
     </changeSet>
 
 
+    <changeSet  author="Saskia"  id="2">
+        <dropTable tableName="post"/>
+    <createTable  tableName="posting">
+        <column  name="id"  type="bigint" autoIncrement="true">
+            <constraints  nullable="false"  primaryKey="true"/>
+        </column>
+        <column  name="user_id"  type="bigint" >
+            <constraints  nullable="false"  primaryKey="false"  unique="false" />
+        </column>
+        <column  name="date"  type="timestamp">
+            <constraints  nullable="false"  primaryKey="false"  unique="false"/>
+        </column>
+        <column  name="heading"  type="varchar(200)" >
+            <constraints  nullable="false" primaryKey="false" unique="false"/>
+        </column>
+        <column  name="body"  type="text" >
+            <constraints  nullable="false" primaryKey="false" unique="false"/>
+        </column>
+
+    </createTable>
+
+    <addForeignKeyConstraint baseTableName="posting" baseColumnNames="user_id" constraintName="fk_posting_intranetuser"
+                             referencedTableName="intranetuser"
+                             referencedColumnNames="id"
+                             onDelete="SET NULL"/>
+    </changeSet>
 </databaseChangeLog>

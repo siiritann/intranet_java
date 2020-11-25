@@ -6,26 +6,26 @@ import java.sql.Timestamp;
 /**
  * CONTROLLER FULL POST RESPONSE
  */
-public class PostResponseFull {
-    private BigInteger id;
+public class PostingResponseFull {
+    private Long id;
     private String username;
     private Timestamp date;
     private String heading;
     private String body;
 
-    public PostResponseFull(BigInteger id, String username, Timestamp date, String heading, String body) {
-        this.id = id;
+    public PostingResponseFull(String username, String heading, String body) {
         this.username = username;
-        this.date = date;
+        this.date = new Timestamp(System.currentTimeMillis());
+//        this.date = date;
         this.heading = heading;
         this.body = body;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

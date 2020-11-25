@@ -6,35 +6,34 @@ import java.sql.Timestamp;
 /**
  * REPOSITORY POST ENTITY
  */
-public class PostEntity {
-    private BigInteger id;
-    private BigInteger userId;
+public class PostingEntity {
+    private Long id;
+    public Long userId;
     private Timestamp date;
     private String heading;
     private String body;
 
-    public PostEntity(BigInteger id, BigInteger userId, Timestamp date, String heading, String body) {
-        this.id = id;
+    public PostingEntity(Long userId, Timestamp date, String heading, String body) {
         this.userId = userId;
-        //this.date = new Timestamp(System.currentTimeMillis());
+//        this.date = new Timestamp(System.currentTimeMillis());
         this.date = date;
         this.heading = heading;
         this.body = body;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public BigInteger getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(BigInteger userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
