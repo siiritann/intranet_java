@@ -2,10 +2,15 @@ package com.intranet.project.service;
 
 import com.intranet.project.controller.user.UserCreation;
 import com.intranet.project.controller.user.ViewUser;
+import com.intranet.project.exceptions.InternalServerErrorException;
 import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.repository.user.UserRepository;
+import com.intranet.project.service.classes.UpdatePassword;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
+
 import java.util.Date;
 import java.util.List;
 
@@ -39,5 +44,26 @@ public class UserService {
         String phone = userEntity.getPhone();
         ViewUser viewUser = new ViewUser(username, password, email, firstname, lastname, birthdate, phone);
         return viewUser;
+    }
+
+    public String updateUserPassword(UpdatePassword updatePassword){
+        UserEntity userEntity = userRepository.getUserById(updatePassword.getId());
+        if(userEntity.getPassword().equals(updatePassword.getCurrentPassword())){
+            if(userRepository.updateUserPassword(userEntity.getId(), updatePassword.getNewPassword()) == 1){
+                return "Password renewed";
+            } else {
+                throw new InternalServerErrorException("Changing password failed");
+            }
+        } else {
+            return "Wrong password";
+        }
+    }
+
+    public String deleteUserById(Long id){
+        // DELETE ALL POSTINGS BY USERID
+        if(userRepository.deleteUserById(id) == 1){
+            return "User and user's posts removed";
+        }
+        return "Something went wrong";
     }
 }

@@ -1,9 +1,9 @@
-package com.intranet.project.controller.response;
+package com.intranet.project.controller.classes;
 
-public class ResponseBody {
+public class ResponseJSON {
     private String message;
 
-    public ResponseBody(String message) {
+    public ResponseJSON(String message) {
         this.message = message;
     }
 
