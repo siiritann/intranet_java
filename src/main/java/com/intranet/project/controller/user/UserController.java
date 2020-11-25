@@ -39,7 +39,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseJSON deletePostingById(@RequestBody UserEntity userEntity){
+    public ResponseJSON deleteUserById(@RequestBody UserEntity userEntity){
         return new ResponseJSON(userService.deleteUserById(userEntity.getId()));
     }
 }

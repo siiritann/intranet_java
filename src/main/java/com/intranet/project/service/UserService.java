@@ -3,6 +3,7 @@ package com.intranet.project.service;
 import com.intranet.project.controller.user.UserCreation;
 import com.intranet.project.controller.user.ViewUser;
 import com.intranet.project.exceptions.InternalServerErrorException;
+import com.intranet.project.repository.post.PostingRepository;
 import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.repository.user.UserRepository;
 import com.intranet.project.service.classes.UpdatePassword;
@@ -19,6 +20,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PostingRepository postingRepository;
 
 
     public Long createUser(UserCreation userCreation){
@@ -60,7 +63,7 @@ public class UserService {
     }
 
     public String deleteUserById(Long id){
-        // DELETE ALL POSTINGS BY USERID
+        postingRepository.deleteUserPostings(id);
         if(userRepository.deleteUserById(id) == 1){
             return "User and user's posts removed";
         }
