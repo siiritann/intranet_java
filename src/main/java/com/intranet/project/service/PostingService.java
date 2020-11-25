@@ -54,4 +54,11 @@ public class PostingService {
         return postingResponseFullList;
     }
 
+    public String deletePostingById(Long posting_id){
+        if(postingRepository.deletePostingById(posting_id) == 1){
+            return "Post removed";
+        }
+        return "Something went wrong";
+    }
+
 }

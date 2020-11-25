@@ -38,4 +38,11 @@ public class PostingRepository {
 
         return postingEntityList;
     }
+
+    public int deletePostingById(Long posting_id){
+        String sql = "DELETE FROM posting WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", posting_id);
+        return jdbcTemplate.update(sql, paramMap);
+    }
 }

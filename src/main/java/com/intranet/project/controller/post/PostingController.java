@@ -1,5 +1,6 @@
 package com.intranet.project.controller.post;
 
+import com.intranet.project.ResponseJSON;
 import com.intranet.project.controller.post.PostingResponseFull;
 import com.intranet.project.repository.post.PostingEntity;
 import com.intranet.project.service.PostingService;
@@ -25,6 +26,12 @@ public class PostingController {
     @GetMapping("/list")
     public List<PostingResponseFull> getListOfPostings(){
         return postingService.getListOfPostings();
+    }
+
+
+    @DeleteMapping("/delete")
+    public ResponseJSON deletePostingById(@RequestBody PostingEntity postingEntity){
+        return new ResponseJSON(postingService.deletePostingById(postingEntity.getId()));
     }
 
 }
