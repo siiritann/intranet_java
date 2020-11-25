@@ -1,12 +1,15 @@
-package com.intranet.project.repository;
+package com.intranet.project.repository.post;
 
 
-import com.intranet.project.repository.post.PostingEntity;
+import com.intranet.project.controller.post.PostingResponseFull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -26,5 +29,13 @@ public class PostingRepository {
         jdbcTemplate.update(sql, paramMap);
 
 
+    }
+
+    public List<PostingEntity> getListOfPostings() {
+        String sql = "SELECT * FROM posting";
+        Map<String, Object> paramMap = new HashMap<>();
+        List<PostingEntity> postingEntityList = jdbcTemplate.query(sql, paramMap, new PostingEntityRowMapper());
+
+        return postingEntityList;
     }
 }

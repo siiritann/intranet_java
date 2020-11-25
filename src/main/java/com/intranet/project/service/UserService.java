@@ -3,7 +3,7 @@ package com.intranet.project.service;
 import com.intranet.project.controller.user.UserCreation;
 import com.intranet.project.controller.user.ViewUser;
 import com.intranet.project.repository.user.UserEntity;
-import com.intranet.project.repository.UserRepository;
+import com.intranet.project.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Date;

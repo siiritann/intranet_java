@@ -21,6 +21,10 @@ public class PostingEntity {
         this.body = body;
     }
 
+    public PostingEntity() {
+
+    }
+
     public Long getId() {
         return id;
     }

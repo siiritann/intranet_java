@@ -1,4 +1,4 @@
-package com.intranet.project.controller;
+package com.intranet.project.controller.user;
 
 import com.intranet.project.controller.user.UserCreation;
 import com.intranet.project.controller.user.ViewUser;

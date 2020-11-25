@@ -13,10 +13,20 @@ public class PostingResponseFull {
     private String heading;
     private String body;
 
+    public PostingResponseFull(){
+
+    }
+
     public PostingResponseFull(String username, String heading, String body) {
         this.username = username;
         this.date = new Timestamp(System.currentTimeMillis());
-//        this.date = date;
+        this.heading = heading;
+        this.body = body;
+    }
+
+    public PostingResponseFull(String username, Timestamp date, String heading, String body) {
+        this.username = username;
+        this.date = date;
         this.heading = heading;
         this.body = body;
     }

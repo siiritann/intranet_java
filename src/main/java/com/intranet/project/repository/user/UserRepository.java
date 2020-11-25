@@ -1,7 +1,5 @@
-package com.intranet.project.repository;
+package com.intranet.project.repository.user;
 
-import com.intranet.project.controller.user.ViewUser;
-import com.intranet.project.repository.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

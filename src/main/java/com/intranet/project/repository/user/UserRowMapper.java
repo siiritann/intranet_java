@@ -1,4 +1,4 @@
-package com.intranet.project.repository;
+package com.intranet.project.repository.user;
 
 import com.intranet.project.repository.user.UserEntity;
 import org.apache.catalina.User;
