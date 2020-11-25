@@ -27,4 +27,10 @@ public class IntranetExceptionHandler extends ResponseEntityExceptionHandler{
                 new HttpHeaders(),
                 HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleInternalServerErrorExceptionDefault(Exception e){
+        return new ResponseEntity<>(new ErrorResponse(e.getMessage()),
+                new HttpHeaders(),
+                HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
