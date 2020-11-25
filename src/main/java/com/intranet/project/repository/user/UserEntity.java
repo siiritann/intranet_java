@@ -18,6 +18,9 @@ public class UserEntity {
     private Date birthDate;
     private String phone;
 
+    public UserEntity() {
+    }
+
     public UserEntity(String username, String password, String email) {
         // for user creation, needed fields
         this.username = username;
