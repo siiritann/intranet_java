@@ -49,12 +49,19 @@ public class UserRepository {
         String sql = "SELECT * FROM intranetuser WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
-        if (jdbcTemplate.query(sql, paramMap, new UserRowMapper()).isEmpty()){
-            return jdbcTemplate.queryForObject(sql, paramMap, new UserRowMapper());
-        } else {
+        List<UserEntity> userList = jdbcTemplate.query(sql, paramMap, new UserRowMapper());
+        if (userList.isEmpty()) {
             throw new NotFoundException("User not found");
+        } else {
+            return userList.get(0);
         }
+    }
 
+    public UserEntity getUserEntityByUsername(String username){
+        String sql = "SELECT * FROM intranetuser WHERE username = :username";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("username", username);
+        return jdbcTemplate.queryForObject(sql, paramMap, new UserRowMapper());
     }
 
     public String getUsernameById(Long id){
