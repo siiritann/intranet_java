@@ -80,8 +80,6 @@ public class UserRepository {
     public int updateUser(UserEntity userEntityUpdated){
         String sql = "UPDATE intranetuser SET username = :username, email = :email, first_name = :firstname, " +
                 "last_name = :lastname, phone = :phone WHERE id = :id";
-        System.out.println("firstName: " + userEntityUpdated.getFirstName());
-        System.out.println("lastName: " + userEntityUpdated.getLastName());
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", userEntityUpdated.getId());
         paramMap.put("username", userEntityUpdated.getUsername());
