@@ -3,6 +3,7 @@ package com.intranet.project.service;
 import com.intranet.project.controller.user.UserCreation;
 import com.intranet.project.controller.user.ViewUser;
 import com.intranet.project.exceptions.InternalServerErrorException;
+import com.intranet.project.exceptions.NotFoundException;
 import com.intranet.project.repository.post.PostingRepository;
 import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.repository.user.UserRepository;
@@ -10,11 +11,13 @@ import com.intranet.project.service.classes.UpdatePassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Matcher;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class UserService {
+    private String emailPattern = "^(.+)@(.+)$";
 
     @Autowired
     private UserRepository userRepository;
@@ -44,6 +47,18 @@ public class UserService {
         Date birthdate = userEntity.getBirthDate();
         String phone = userEntity.getPhone();
         return new ViewUser(username, password, email, firstname, lastname, birthdate, phone);
+    }
+
+    public UserEntity updateUser(UserEntity userEntityUpdated){
+        if(!userEntityUpdated.getEmail().matches(emailPattern)) {
+            throw new InternalServerErrorException("Invalid email");
+        }
+        if(userRepository.updateUser(userEntityUpdated) == 1){
+            return userRepository.getUserById(userEntityUpdated.getId());
+        } else {
+            throw new NotFoundException("User not found");
+        }
+
     }
 
     public String updateUserPassword(UpdatePassword updatePassword){

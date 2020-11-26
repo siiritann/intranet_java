@@ -78,6 +78,19 @@ public class UserRepository {
         return list.get(0);
     }
 
+    public int updateUser(UserEntity userEntityUpdated){
+        String sql = "UPDATE intranetuser SET username = :username, email = :email, first_name = :firstname, " +
+                "last_name = :lastname, phone = :phone WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", userEntityUpdated.getId());
+        paramMap.put("username", userEntityUpdated.getUsername());
+        paramMap.put("email", userEntityUpdated.getEmail());
+        paramMap.put("firstname", userEntityUpdated.getFirstName());
+        paramMap.put("lastname", userEntityUpdated.getLastName());
+        paramMap.put("phone", userEntityUpdated.getPhone());
+        return jdbcTemplate.update(sql, paramMap);
+    }
+
     public int updateUserPassword(Long id, String password){
         String sql = "UPDATE intranetuser SET password = :password WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
