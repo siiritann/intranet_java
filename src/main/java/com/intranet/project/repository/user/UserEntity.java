@@ -1,7 +1,5 @@
 package com.intranet.project.repository.user;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 
 // User entity class for Repo use, with all info

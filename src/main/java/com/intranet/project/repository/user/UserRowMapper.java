@@ -1,7 +1,5 @@
 package com.intranet.project.repository.user;
 
-import com.intranet.project.repository.user.UserEntity;
-import org.apache.catalina.User;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

@@ -1,5 +1,6 @@
 package com.intranet.project.repository.user;
 
+import com.intranet.project.exceptions.InternalServerErrorException;
 import com.intranet.project.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -18,7 +19,7 @@ public class UserRepository {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    public Long createUser(UserEntity userEntity){
+    public Long createUser(UserEntity userEntity) {
         String sql = "INSERT INTO intranetuser (username, password, email, is_admin) VALUES (:username, :password, :email, false)";
         Map<String, Object> paramMap = new HashMap<>();
         String username = userEntity.getUsername();
@@ -30,22 +31,25 @@ public class UserRepository {
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);
-        return (Long) keyHolder.getKeys().get("id");
+        Long userID = (Long) keyHolder.getKeys().get("id");
+        if(userID == null){
+            throw new InternalServerErrorException("Internal server error: intranetuser id == null");
+        }
+        return userID;
     }
 
     public Long getUserIdByUsername(String username){
         String sql = "SELECT id FROM intranetuser WHERE username = :username";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("username", username);
-        Long id = jdbcTemplate.queryForObject(sql, paramMap, Long.class);
-        return id;
+        return jdbcTemplate.queryForObject(sql, paramMap, Long.class);
     }
 
     public UserEntity getUserById(Long id){
         String sql = "SELECT * FROM intranetuser WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
-        if (jdbcTemplate.query(sql, paramMap, new UserRowMapper()).size() > 0){
+        if (jdbcTemplate.query(sql, paramMap, new UserRowMapper()).isEmpty()){
             return jdbcTemplate.queryForObject(sql, paramMap, new UserRowMapper());
         } else {
             throw new NotFoundException("User not found");
@@ -57,15 +61,13 @@ public class UserRepository {
         String sql = "SELECT username FROM intranetuser WHERE id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
-        String username = jdbcTemplate.queryForObject(sql, paramMap, String.class);
-        return username;
+        return jdbcTemplate.queryForObject(sql, paramMap, String.class);
     }
 
-    public List getListOfUsers(){
+    public List<UserEntity> getListOfUsers(){
         String sql = "SELECT * FROM intranetuser";
         Map<String, Object> paramMap = new HashMap<>();
-        List <UserEntity>  usersList = jdbcTemplate.query(sql, paramMap, new UserRowMapper());
-        return usersList;
+        return jdbcTemplate.query(sql, paramMap, new UserRowMapper());
     }
 
     public UserEntity viewUser(Long id) {
@@ -73,8 +75,7 @@ public class UserRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
         List<UserEntity> list = jdbcTemplate.query(sql, paramMap, new UserRowMapper());
-        UserEntity userEntity = list.get(0);
-        return userEntity;
+        return list.get(0);
     }
 
     public int updateUserPassword(Long id, String password){
