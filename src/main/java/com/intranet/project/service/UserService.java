@@ -13,11 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 
+import java.util.regex.Matcher;
 import java.util.Date;
 import java.util.List;
 
 @Service
 public class UserService {
+    private String emailPattern = "^(.+)@(.+)$";
 
     @Autowired
     private UserRepository userRepository;
@@ -51,6 +53,9 @@ public class UserService {
     }
 
     public UserEntity updateUser(UserEntity userEntityUpdated){
+        if(!userEntityUpdated.getEmail().matches(emailPattern)) {
+            throw new InternalServerErrorException("Invalid email");
+        }
         if(userRepository.updateUser(userEntityUpdated) == 1){
             return userRepository.getUserById(userEntityUpdated.getId());
         } else {
