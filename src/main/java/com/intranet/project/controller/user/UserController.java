@@ -47,4 +47,9 @@ public class UserController {
     public ResponseJSON deleteUserById(@RequestBody UserEntity userEntity){
         return new ResponseJSON(userService.deleteUserById(userEntity.getId()));
     }
+
+    @PostMapping("/login")
+    public String loginUser(@RequestBody UserCreation userCreation){
+        return userService.loginUser(userCreation);
+    }
 }

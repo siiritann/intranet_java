@@ -7,8 +7,10 @@ import com.intranet.project.exceptions.NotFoundException;
 import com.intranet.project.repository.post.PostingRepository;
 import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.repository.user.UserRepository;
+import com.intranet.project.security.Jwt;
 import com.intranet.project.service.classes.UpdatePassword;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.regex.Matcher;
@@ -21,9 +23,12 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private PostingRepository postingRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public Long createUser(UserCreation userCreation){
         String username = userCreation.getUsername();
@@ -81,4 +86,29 @@ public class UserService {
         }
         return "Something went wrong";
     }
+
+    public String loginUser(UserCreation userCreation){
+        String username = userCreation.getUsername();
+        String password = userCreation.getPassword();
+        Long id = userRepository.getUserIdByUsername(username);
+        if (id == null) {
+            throw new NotFoundException("Username not found");
+        }
+
+        if (!userRepository.getUserById(id).getPassword().equals(password)){
+            throw new NotFoundException("Wrong password");
+        }
+        Jwt jwt = new Jwt();
+        return jwt.getBearerToken();
+    }
+
+    public boolean validate(String username, String rawPassword){
+        String encodedPassword = userRepository.getUserEntityByUsername(username).getPassword();
+        return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+
+    public void savePassword(String password){
+        String encodedPassword = passwordEncoder.encode(password);
+    }
+
 }
