@@ -33,6 +33,11 @@ public class UserController {
         return userService.viewUser(id);
     }
 
+    @PutMapping("/update")
+    public UserEntity updateUser(@RequestBody UserEntity userEntityUpdated){
+        return userService.updateUser(userEntityUpdated);
+    }
+
     @PutMapping("/update/password")
     public ResponseJSON updateUserPassword(@RequestBody UpdatePassword updatePassword){
         return new ResponseJSON(userService.updateUserPassword(updatePassword));

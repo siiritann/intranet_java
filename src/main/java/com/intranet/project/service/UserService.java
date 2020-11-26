@@ -3,6 +3,7 @@ package com.intranet.project.service;
 import com.intranet.project.controller.user.UserCreation;
 import com.intranet.project.controller.user.ViewUser;
 import com.intranet.project.exceptions.InternalServerErrorException;
+import com.intranet.project.exceptions.NotFoundException;
 import com.intranet.project.repository.post.PostingRepository;
 import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.repository.user.UserRepository;
@@ -47,6 +48,15 @@ public class UserService {
         String phone = userEntity.getPhone();
         ViewUser viewUser = new ViewUser(username, password, email, firstname, lastname, birthdate, phone);
         return viewUser;
+    }
+
+    public UserEntity updateUser(UserEntity userEntityUpdated){
+        if(userRepository.updateUser(userEntityUpdated) == 1){
+            return userRepository.getUserById(userEntityUpdated.getId());
+        } else {
+            throw new NotFoundException("User not found");
+        }
+
     }
 
     public String updateUserPassword(UpdatePassword updatePassword){
