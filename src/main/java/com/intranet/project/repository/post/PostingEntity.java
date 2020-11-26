@@ -1,6 +1,5 @@
 package com.intranet.project.repository.post;
 
-import java.math.BigInteger;
 import java.sql.Timestamp;
 
 /**
@@ -8,14 +7,13 @@ import java.sql.Timestamp;
  */
 public class PostingEntity {
     private Long id;
-    public Long userId;
+    private Long userId;
     private Timestamp date;
     private String heading;
     private String body;
 
     public PostingEntity(Long userId, Timestamp date, String heading, String body) {
         this.userId = userId;
-//        this.date = new Timestamp(System.currentTimeMillis());
         this.date = date;
         this.heading = heading;
         this.body = body;

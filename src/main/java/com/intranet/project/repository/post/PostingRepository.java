@@ -30,18 +30,14 @@ public class PostingRepository {
     public List<PostingEntity> getListOfPostings() {
         String sql = "SELECT * FROM posting";
         Map<String, Object> paramMap = new HashMap<>();
-        List<PostingEntity> postingEntityList = jdbcTemplate.query(sql, paramMap, new PostingEntityRowMapper());
-
-        return postingEntityList;
+        return jdbcTemplate.query(sql, paramMap, new PostingEntityRowMapper());
     }
 
     public List<PostingEntity> getUserPostings(Long userId) {
         String sql = "SELECT * FROM posting WHERE user_id = :id";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", userId);
-        List<PostingEntity> postingEntityList = jdbcTemplate.query(sql, paramMap, new PostingEntityRowMapper());
-
-        return postingEntityList;
+        return jdbcTemplate.query(sql, paramMap, new PostingEntityRowMapper());
     }
 
     public int deletePostingById(Long postingId){
