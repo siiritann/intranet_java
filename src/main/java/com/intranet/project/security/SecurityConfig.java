@@ -16,7 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{ // autoriseeri päringuid üle http
         http.authorizeRequests()
                 .antMatchers("/","/register", "/user/login", "/user/create").permitAll() // juhul kui päring tehakse /home pihta luba sinna kõik ligi
-                .anyRequest().authenticated(); // kõik muud päringud peavad olema kasutaja audenditud
+                .anyRequest().permitAll();/*.authenticated();*/ // kõik muud päringud peavad olema kasutaja audenditud
 
         http.cors();
         http.csrf().disable();
