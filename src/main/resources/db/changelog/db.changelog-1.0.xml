@@ -87,4 +87,61 @@
                              referencedColumnNames="id"
                              onDelete="SET NULL"/>
     </changeSet>
+    <changeSet  author="Ott"  id="3">
+        <dropTable tableName="posting"/>
+        <dropTable tableName="intranetuser"/>
+        <createTable  tableName="intranetuser">
+            <column  name="id"  type="bigint" autoIncrement="true">
+                <constraints  nullable="false"  primaryKey="true"/>
+            </column>
+            <column  name="username"  type="varchar(50)">
+                <constraints  nullable="false"  primaryKey="false"  unique="true"/>
+            </column>
+            <column  name="password"  type="varchar(200)">
+                <constraints  nullable="false"  primaryKey="false"  unique="false"/>
+            </column>
+            <column  name="is_admin"  type="boolean" >
+                <constraints  nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column  name="email"  type="varchar(254)" >
+                <constraints  nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column  name="first_name"  type="varchar(50)" >
+                <constraints  nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column  name="last_name"  type="varchar(50)" >
+                <constraints  nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column  name="birth_date"  type="date" >
+                <constraints  nullable="true" primaryKey="false" unique="false"/>
+            </column>
+            <column  name="phone"  type="varchar(50)" >
+                <constraints  nullable="true" primaryKey="false" unique="false"/>
+            </column>
+
+        </createTable>
+        <createTable  tableName="posting">
+            <column  name="id"  type="bigint" autoIncrement="true">
+                <constraints  nullable="false"  primaryKey="true"/>
+            </column>
+            <column  name="user_id"  type="bigint" >
+                <constraints  nullable="false"  primaryKey="false"  unique="false" />
+            </column>
+            <column  name="date"  type="timestamp">
+                <constraints  nullable="false"  primaryKey="false"  unique="false"/>
+            </column>
+            <column  name="heading"  type="varchar(200)" >
+                <constraints  nullable="false" primaryKey="false" unique="false"/>
+            </column>
+            <column  name="body"  type="text" >
+                <constraints  nullable="false" primaryKey="false" unique="false"/>
+            </column>
+
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="posting" baseColumnNames="user_id" constraintName="fk_posting_intranetuser"
+                                 referencedTableName="intranetuser"
+                                 referencedColumnNames="id"
+                                 onDelete="SET NULL"/>
+    </changeSet>
 </databaseChangeLog>

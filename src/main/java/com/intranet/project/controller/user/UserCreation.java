@@ -1,6 +1,5 @@
 package com.intranet.project.controller.user;
 
-
 public class UserCreation {
     // User Response class for User creation
     private String username;

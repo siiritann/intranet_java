@@ -32,7 +32,7 @@ public class UserService {
 
     public Long createUser(UserCreation userCreation){
         String username = userCreation.getUsername();
-        String password = userCreation.getPassword();
+        String password = savePassword(userCreation.getPassword());
         String email = userCreation.getEmail();
         UserEntity userEntity = new UserEntity(username, password, email);
         return userRepository.createUser(userEntity);
@@ -68,8 +68,8 @@ public class UserService {
 
     public String updateUserPassword(UpdatePassword updatePassword){
         UserEntity userEntity = userRepository.getUserById(updatePassword.getId());
-        if(userEntity.getPassword().equals(updatePassword.getCurrentPassword())){
-            if(userRepository.updateUserPassword(userEntity.getId(), updatePassword.getNewPassword()) == 1){
+        if(validate(userEntity.getUsername(), updatePassword.getCurrentPassword())){
+            if(userRepository.updateUserPassword(userEntity.getId(), savePassword(updatePassword.getNewPassword())) == 1){
                 return "Password renewed";
             } else {
                 throw new InternalServerErrorException("Changing password failed");
@@ -95,7 +95,7 @@ public class UserService {
             throw new NotFoundException("Username not found");
         }
 
-        if (!userRepository.getUserById(id).getPassword().equals(password)){
+        if (!validate(username, password)){
             throw new NotFoundException("Wrong password");
         }
         Jwt jwt = new Jwt();
@@ -107,8 +107,8 @@ public class UserService {
         return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
-    public void savePassword(String password){
-        String encodedPassword = passwordEncoder.encode(password);
+    public String savePassword(String password){
+        return passwordEncoder.encode(password);
     }
 
 }
