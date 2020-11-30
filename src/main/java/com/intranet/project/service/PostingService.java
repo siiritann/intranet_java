@@ -3,6 +3,7 @@ package com.intranet.project.service;
 
 import com.intranet.project.controller.post.PostingResponseFull;
 import com.intranet.project.repository.post.PostingRepository;
+import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.repository.user.UserRepository;
 import com.intranet.project.repository.post.PostingEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,20 @@ public class PostingService {
         postingRepository.createPosting(postingEntity);
     }
 
+    public void updatePosting(PostingResponseFull postingResponseFull) {
+        Long id = postingResponseFull.getId();
+        String username = postingResponseFull.getUsername();
+        Long userId = userRepository.getUserIdByUsername(username);
+        Timestamp date = postingResponseFull.getDate();
+        String heading = postingResponseFull.getHeading();
+        String body = postingResponseFull.getBody();
+        postingRepository.updatePosting(new PostingEntity(id, userId, heading, body));
+    }
+    public PostingResponseFull getPosting(Long postingId) {
+        PostingEntity postingEntity = postingRepository.getPostingById(postingId);
+        return postingEntityToResponseFull(postingEntity);
+    }
+
     public List<PostingResponseFull> getListOfPostings() {
         List<PostingEntity> postingEntityList = postingRepository.getListOfPostings();
         List<PostingResponseFull> postingResponseFullList = new ArrayList<>();
@@ -55,7 +70,8 @@ public class PostingService {
         return postingResponseFullList;
     }
 
-    public List<PostingResponseFull> getUserPostings(Long userId) {
+    public List<PostingResponseFull> getUserPostings(String username) {
+        Long userId = userRepository.getUserIdByUsername(username);
         List<PostingEntity> postingEntityList = postingRepository.getUserPostings(userId);
         List<PostingResponseFull> postingResponseFullList = new ArrayList<>();
         for(PostingEntity item: postingEntityList){

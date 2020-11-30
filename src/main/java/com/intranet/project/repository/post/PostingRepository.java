@@ -1,6 +1,7 @@
 package com.intranet.project.repository.post;
 
 
+import com.intranet.project.controller.post.PostingResponseFull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -23,8 +24,23 @@ public class PostingRepository {
         paramMap.put("heading", postingEntity.getHeading());
         paramMap.put("body", postingEntity.getBody());
         jdbcTemplate.update(sql, paramMap);
+    }
 
+    public void updatePosting(PostingEntity postingEntity) {
+        String sql = "UPDATE posting SET date = :date, heading = :heading, body = :body WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", postingEntity.getId());
+        paramMap.put("date", postingEntity.getDate());
+        paramMap.put("heading", postingEntity.getHeading());
+        paramMap.put("body", postingEntity.getBody());
+        jdbcTemplate.update(sql, paramMap);
+    }
 
+    public PostingEntity getPostingById(Long postingId) {
+        String sql = "SELECT * FROM posting WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", postingId);
+        return jdbcTemplate.queryForObject(sql, paramMap, new PostingEntityRowMapper());
     }
 
     public List<PostingEntity> getListOfPostings() {
@@ -53,4 +69,6 @@ public class PostingRepository {
         paramMap.put("id", userId);
         jdbcTemplate.update(sql, paramMap);
     }
+
+
 }
