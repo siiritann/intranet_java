@@ -99,7 +99,7 @@ public class UserService {
             throw new NotFoundException("Wrong password");
         }
         Jwt jwt = new Jwt();
-        return jwt.getBearerToken();
+        return jwt.getBearerToken(id, username);
     }
 
     public boolean validate(String username, String rawPassword){
@@ -110,5 +110,4 @@ public class UserService {
     public String savePassword(String password){
         return passwordEncoder.encode(password);
     }
-
 }
