@@ -18,7 +18,13 @@ public class PostingEntity {
         this.heading = heading;
         this.body = body;
     }
-
+    public PostingEntity(Long id, Long userId, String heading, String body) {
+        this.id = id;
+        this.userId = userId;
+        this.date = new Timestamp(System.currentTimeMillis());
+        this.heading = heading;
+        this.body = body;
+    }
     public PostingEntity() {
 
     }

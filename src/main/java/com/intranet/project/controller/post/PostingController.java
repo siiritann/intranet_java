@@ -2,6 +2,7 @@ package com.intranet.project.controller.post;
 
 import com.intranet.project.controller.classes.ResponseJSON;
 import com.intranet.project.repository.post.PostingEntity;
+import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.service.PostingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,25 +20,34 @@ public class PostingController {
     @PostMapping("/create")
     public void createPosting(@RequestBody PostingResponseFull postingResponseFull){
         postingService.createPosting(postingResponseFull);
+    }
 
+    @PutMapping("/update")
+    public void updatePosting(@RequestBody PostingResponseFull postingResponseFull){
+        postingService.updatePosting(postingResponseFull);
     }
 
     @GetMapping("/list")
     public List<PostingResponseFull> getListOfPostings(){
+
         return postingService.getListOfPostings();
     }
-
-    @GetMapping("/user/{id}")
-    public List<PostingResponseFull> getUserPostings(@PathVariable("id") Long userId){
-        return postingService.getUserPostings(userId);
+    @GetMapping("/view/{id}")
+    public PostingResponseFull getPosting(@PathVariable("id") Long postingId){
+        return postingService.getPosting(postingId);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseJSON deletePostingById(@RequestBody PostingEntity postingEntity){
-        return new ResponseJSON(postingService.deletePostingById(postingEntity.getId()));
+    @GetMapping("/user/{username}")
+    public List<PostingResponseFull> getUserPostings(@PathVariable("username") String username){
+        return postingService.getUserPostings(username);
     }
-    @DeleteMapping("/delete/userposts")
-    public void deleteUserPostings(@RequestBody PostingEntity postingEntity){
-        postingService.deleteUserPostings(postingEntity.getUserId());
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseJSON deletePostingById(@PathVariable("id") Long postId){
+        return new ResponseJSON(postingService.deletePostingById(postId));
+    }
+    @DeleteMapping("/delete/userposts/{userId}")
+    public void deleteUserPostings(@PathVariable("userId") Long userId){
+        postingService.deleteUserPostings(userId);
     }
 }
