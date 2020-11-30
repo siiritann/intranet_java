@@ -48,8 +48,8 @@ public class PostingService {
     public List<PostingResponseFull> getListOfPostings() {
         List<PostingEntity> postingEntityList = postingRepository.getListOfPostings();
         List<PostingResponseFull> postingResponseFullList = new ArrayList<>();
-        for(PostingEntity item: postingEntityList){
-            PostingResponseFull postingResponseFull = postingEntityToResponseFull(item);
+        for(int i = postingEntityList.size() - 1; i >= 0; i--){
+            PostingResponseFull postingResponseFull = postingEntityToResponseFull(postingEntityList.get(i));
             postingResponseFullList.add(postingResponseFull);
         }
         return postingResponseFullList;

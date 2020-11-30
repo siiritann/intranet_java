@@ -24,6 +24,7 @@ public class PostingController {
 
     @GetMapping("/list")
     public List<PostingResponseFull> getListOfPostings(){
+
         return postingService.getListOfPostings();
     }
 
@@ -32,12 +33,12 @@ public class PostingController {
         return postingService.getUserPostings(userId);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseJSON deletePostingById(@RequestBody PostingEntity postingEntity){
-        return new ResponseJSON(postingService.deletePostingById(postingEntity.getId()));
+    @DeleteMapping("/delete/{id}")
+    public ResponseJSON deletePostingById(@PathVariable("id") Long postId){
+        return new ResponseJSON(postingService.deletePostingById(postId));
     }
-    @DeleteMapping("/delete/userposts")
-    public void deleteUserPostings(@RequestBody PostingEntity postingEntity){
-        postingService.deleteUserPostings(postingEntity.getUserId());
+    @DeleteMapping("/delete/userposts/{userId}")
+    public void deleteUserPostings(@PathVariable("userId") Long userId){
+        postingService.deleteUserPostings(userId);
     }
 }
