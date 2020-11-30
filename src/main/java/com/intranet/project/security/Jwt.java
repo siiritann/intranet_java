@@ -10,13 +10,13 @@ import java.util.UUID;
 
 public class Jwt {
 
-    public String getBearerToken() {
+    public String getBearerToken(Long intranetuserId, String username) {
         JwtBuilder builder = Jwts.builder()
                 .setExpiration(Date.from(ZonedDateTime.now().plusDays(7).toInstant()))
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(new Date())
-                .setIssuer("siiri")
-                .signWith(SignatureAlgorithm.HS256, "secret");
+                .setIssuer("intranet")
+                .signWith(SignatureAlgorithm.HS256, "secret").claim("intranetuserId", intranetuserId).claim("username", username);
         String jwt = builder.compact();
         return jwt;
     }
