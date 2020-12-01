@@ -3,6 +3,7 @@ package com.intranet.project.controller.user;
 import java.util.Date;
 
 public class ViewUser {
+    private Long id;
     private String username;
     private String password;
     private String email;
@@ -12,7 +13,8 @@ public class ViewUser {
     private String phone;
 
 
-    public ViewUser(String username, String password, String email, String firstName, String lastName, Date birthDate, String phone) {
+    public ViewUser(Long id, String username, String password, String email, String firstName, String lastName, Date birthDate, String phone) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -20,6 +22,14 @@ public class ViewUser {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.phone = phone;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {

@@ -51,7 +51,7 @@ public class UserService {
         String lastname = userEntity.getLastName();
         Date birthdate = userEntity.getBirthDate();
         String phone = userEntity.getPhone();
-        return new ViewUser(username, password, email, firstname, lastname, birthdate, phone);
+        return new ViewUser(id, username, password, email, firstname, lastname, birthdate, phone);
     }
 
     public UserEntity updateUser(UserEntity userEntityUpdated){

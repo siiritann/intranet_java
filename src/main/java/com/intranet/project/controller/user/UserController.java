@@ -2,9 +2,12 @@ package com.intranet.project.controller.user;
 
 import com.intranet.project.controller.classes.ResponseJSON;
 import com.intranet.project.repository.user.UserEntity;
+import com.intranet.project.security.MyUser;
 import com.intranet.project.service.UserService;
 import com.intranet.project.service.classes.UpdatePassword;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +34,14 @@ public class UserController {
     @GetMapping("/view/{id}")
     public ViewUser viewUser(@PathVariable("id") Long id) {
         return userService.viewUser(id);
+    }
+
+    @GetMapping("/view")
+    public ViewUser viewUser(Authentication authentication) {
+        MyUser userDetails = (MyUser) authentication.getPrincipal();
+        System.out.println(userDetails.getId());
+        System.out.println(userDetails.getUsername());
+        return userService.viewUser(userDetails.getId());
     }
 
     @PutMapping("/update")
