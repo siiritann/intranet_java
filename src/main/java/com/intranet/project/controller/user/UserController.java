@@ -36,6 +36,13 @@ public class UserController {
         return userService.viewUser(id);
     }
 
+    @GetMapping("/view/basic")
+    public BasicUser basicUser(Authentication authentication) {
+        MyUser userDetails = (MyUser) authentication.getPrincipal();
+        BasicUser basicUser = new BasicUser(userDetails.getId(), userDetails.getUsername());
+        return basicUser;
+    }
+
     @GetMapping("/view")
     public ViewUser viewUser(Authentication authentication) {
         MyUser userDetails = (MyUser) authentication.getPrincipal();
