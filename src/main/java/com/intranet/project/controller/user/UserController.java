@@ -61,9 +61,9 @@ public class UserController {
         return new ResponseJSON(userService.updateUserPassword(updatePassword));
     }
 
-    @DeleteMapping("/delete")
-    public ResponseJSON deleteUserById(@RequestBody UserEntity userEntity){
-        return new ResponseJSON(userService.deleteUserById(userEntity.getId()));
+    @DeleteMapping("/delete/{id}")
+    public ResponseJSON deleteUserById(@PathVariable("id") long id){
+        return new ResponseJSON(userService.deleteUserById(id));
     }
 
     @PostMapping("/login")
