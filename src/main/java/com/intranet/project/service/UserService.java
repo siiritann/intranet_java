@@ -112,11 +112,13 @@ public class UserService {
         return passwordEncoder.encode(password);
     }
 
-    public Blob getImageById(Long userId) {
-        return userRepository.getImageById(userId);
-    }
+//    public Blob getImageById(Long userId) {
+//        System.out.println(userRepository.getImageById(userId));
+//        return
+//
+//    }
 
-    public void postImage(byte[] bytes) {
-        userRepository.postImage(bytes);
+    public void postImage(byte[] bytes, long userId) {
+        userRepository.postImage(bytes, userId);
     }
 }

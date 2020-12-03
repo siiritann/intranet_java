@@ -3,6 +3,8 @@ package com.intranet.project.repository.user;
 import com.intranet.project.exceptions.InternalServerErrorException;
 import com.intranet.project.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Blob;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,12 +121,15 @@ public class UserRepository {
     public Blob getImageById(Long userId) {
         String sql = "SELECT picture FROM image WHERE user_id = :userId";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("userId", userId);
+        paramMap.put("userId", 12);
         return jdbcTemplate.queryForObject(sql, paramMap, Blob.class);
     }
 
-    public void postImage(byte[] bytes) {
-        String sql = "INSERT INTO image (picture) VAlUES (:bytes)";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
+    public void postImage(byte[] bytes, long userId) {
+        String sql = "INSERT INTO image (user_id, picture) VALUES (:userId, :bytes)";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userId", userId);
+        paramMap.put("bytes", bytes);
+        jdbcTemplate.update(sql, paramMap);
     }
 }
