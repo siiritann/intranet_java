@@ -5,11 +5,15 @@ import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.security.MyUser;
 import com.intranet.project.service.UserService;
 import com.intranet.project.service.classes.UpdatePassword;
+import javassist.bytecode.ByteArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.sql.Blob;
 import java.util.List;
 
 @CrossOrigin
@@ -34,6 +38,26 @@ public class UserController {
     @GetMapping("/view/{id}")
     public ViewUser viewUser(@PathVariable("id") Long id) {
         return userService.viewUser(id);
+    }
+
+    @PostMapping("/image/post/{userId}")
+    public void postImage(@PathVariable("userId") String userId,
+                          @RequestParam("photos") MultipartFile file) throws IOException{
+        try {
+            byte[] bytes = file.getBytes();
+            userService.postImage(bytes);
+        } catch(IOException e){
+            System.out.println("got IOException");
+            System.out.println(e);
+        }
+        //MyUser userDetails = (MyUser) authentication.getPrincipal();
+        System.out.println("Got something");
+
+    }
+
+    @GetMapping("/image/{userId}")
+    public Blob getImageById(@PathVariable("userId") Long userId){
+        return userService.getImageById(userId);
     }
 
     @GetMapping("/view/basic")

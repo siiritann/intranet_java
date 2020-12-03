@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Blob;
 import java.util.regex.Matcher;
 import java.util.Date;
 import java.util.List;
@@ -109,5 +110,13 @@ public class UserService {
 
     public String savePassword(String password){
         return passwordEncoder.encode(password);
+    }
+
+    public Blob getImageById(Long userId) {
+        return userRepository.getImageById(userId);
+    }
+
+    public void postImage(byte[] bytes) {
+        userRepository.postImage(bytes);
     }
 }

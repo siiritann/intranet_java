@@ -9,6 +9,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Blob;
+import java.sql.PreparedStatement;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,5 +113,17 @@ public class UserRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", id);
         return jdbcTemplate.update(sql, paramMap);
+    }
+
+    public Blob getImageById(Long userId) {
+        String sql = "SELECT picture FROM image WHERE user_id = :userId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userId", userId);
+        return jdbcTemplate.queryForObject(sql, paramMap, Blob.class);
+    }
+
+    public void postImage(byte[] bytes) {
+        String sql = "INSERT INTO image (picture) VAlUES (:bytes)";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
     }
 }
