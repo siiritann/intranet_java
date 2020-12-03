@@ -25,6 +25,7 @@ public class PostingEntity {
         this.heading = heading;
         this.body = body;
     }
+
     public PostingEntity() {
 
     }

@@ -41,9 +41,10 @@ public class PostingService {
         return new PostingResponseFull(id, username, date, heading, body);
     }
 
-    public void createPosting(PostingResponseFull postingResponseFull) {
+    public PostingResponseFull createPosting(PostingResponseFull postingResponseFull) {
         PostingEntity postingEntity = postingResponseFullToEntity(postingResponseFull);
         postingRepository.createPosting(postingEntity);
+        return postingEntityToResponseFull(postingEntity);
     }
 
     public void updatePosting(PostingResponseFull postingResponseFull) {
@@ -63,8 +64,8 @@ public class PostingService {
     public List<PostingResponseFull> getListOfPostings() {
         List<PostingEntity> postingEntityList = postingRepository.getListOfPostings();
         List<PostingResponseFull> postingResponseFullList = new ArrayList<>();
-        for(int i = postingEntityList.size() - 1; i >= 0; i--){
-            PostingResponseFull postingResponseFull = postingEntityToResponseFull(postingEntityList.get(i));
+        for(PostingEntity item: postingEntityList){
+            PostingResponseFull postingResponseFull = postingEntityToResponseFull(item);
             postingResponseFullList.add(postingResponseFull);
         }
         return postingResponseFullList;

@@ -18,8 +18,8 @@ public class PostingController {
     private PostingService postingService;
 
     @PostMapping("/create")
-    public void createPosting(@RequestBody PostingResponseFull postingResponseFull){
-        postingService.createPosting(postingResponseFull);
+    public PostingResponseFull createPosting(@RequestBody PostingResponseFull postingResponseFull){
+        return postingService.createPosting(postingResponseFull);
     }
 
     @PutMapping("/update")

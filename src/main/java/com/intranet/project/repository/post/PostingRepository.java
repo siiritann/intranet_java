@@ -44,7 +44,7 @@ public class PostingRepository {
     }
 
     public List<PostingEntity> getListOfPostings() {
-        String sql = "SELECT * FROM posting";
+        String sql = "SELECT * FROM posting ORDER BY date desc";
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.query(sql, paramMap, new PostingEntityRowMapper());
     }
