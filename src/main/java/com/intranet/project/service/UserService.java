@@ -13,8 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.sql.Blob;
-import java.util.regex.Matcher;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
@@ -112,11 +113,14 @@ public class UserService {
         return passwordEncoder.encode(password);
     }
 
-//    public Blob getImageById(Long userId) {
-//        System.out.println(userRepository.getImageById(userId));
-//        return
-//
-//    }
+    public void getImageById(Long userId, HttpServletResponse response) throws IOException, SQLException {
+        byte[] test = userRepository.getImageById(userId);
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + "picture.jpg" + "\"");
+        response.setContentType("image/jpg");
+        // TODO baasi salvestada fail size ja byte arraysse lugeda faili täpne suurus
+        response.setContentLength(test.length);
+        response.getOutputStream().write(test);
+    }
 
     public void postImage(byte[] bytes, long userId) {
         userRepository.postImage(bytes, userId);

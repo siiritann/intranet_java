@@ -3,16 +3,13 @@ package com.intranet.project.repository.user;
 import com.intranet.project.exceptions.InternalServerErrorException;
 import com.intranet.project.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Blob;
-import java.sql.PreparedStatement;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -125,11 +122,13 @@ public class UserRepository {
         return jdbcTemplate.update(sql, paramMap);
     }
 
-    public Blob getImageById(Long userId) {
+    public byte[] getImageById(Long userId) throws SQLException, IOException {
         String sql = "SELECT picture FROM image WHERE user_id = :userId";
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("userId", 12);
-        return jdbcTemplate.queryForObject(sql, paramMap, Blob.class);
+        paramMap.put("userId", userId);
+        List<Image> resultList = jdbcTemplate.query(sql, paramMap, new ImageRowMapper());
+        return resultList.get(0).getImage();
+
     }
 
     public void postImage(byte[] bytes, long userId) {
