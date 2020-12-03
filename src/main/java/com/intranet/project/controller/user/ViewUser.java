@@ -11,7 +11,7 @@ public class ViewUser {
     private String lastName;
     private Date birthDate;
     private String phone;
-
+    private Long imageId;
 
     public ViewUser(Long id, String username, String password, String email, String firstName, String lastName, Date birthDate, String phone) {
         this.id = id;
@@ -22,6 +22,18 @@ public class ViewUser {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.phone = phone;
+    }
+
+    public ViewUser(Long id, String username, String password, String email, String firstName, String lastName, Date birthDate, String phone, Long imageId) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.phone = phone;
+        this.imageId = imageId;
     }
 
     public Long getId() {
@@ -86,5 +98,13 @@ public class ViewUser {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
     }
 }
