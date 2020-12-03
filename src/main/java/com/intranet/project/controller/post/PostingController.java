@@ -39,7 +39,7 @@ public class PostingController {
 
     @GetMapping("/user/{username}")
     public List<PostingResponseFull> getUserPostings(@PathVariable("username") String username){
-        return postingService.getUserPostings(username);
+        return postingService.getPostingsListByUsername(username);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -1,7 +1,5 @@
 package com.intranet.project.repository.post;
 
-
-import com.intranet.project.controller.post.PostingResponseFull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -50,9 +48,16 @@ public class PostingRepository {
     }
 
     public List<PostingEntity> getUserPostings(Long userId) {
-        String sql = "SELECT * FROM posting WHERE user_id = :id";
+        String sql = "SELECT * FROM posting WHERE user_id = :id ORDER BY date desc";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("id", userId);
+        return jdbcTemplate.query(sql, paramMap, new PostingEntityRowMapper());
+    }
+
+    public List<PostingEntity> getDifferentUsersPostings(List<Long> userId) {
+        String sql = "SELECT * FROM posting WHERE user_id IN (:list) ORDER BY date desc";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("list", userId);
         return jdbcTemplate.query(sql, paramMap, new PostingEntityRowMapper());
     }
 

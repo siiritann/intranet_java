@@ -39,10 +39,17 @@ public class UserRepository {
     }
 
     public Long getUserIdByUsername(String username){
-        String sql = "SELECT id FROM intranetuser WHERE username = :username";
+        String sql = "SELECT id FROM intranetuser WHERE username = :username ";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("username", username);
         return jdbcTemplate.queryForObject(sql, paramMap, Long.class);
+    }
+    public List<Long> getUserIdListByUsername(String username){
+        String sql = "SELECT id FROM intranetuser WHERE username ILIKE :username ";
+        String name = "%"+username+"%";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("username", name);
+        return jdbcTemplate.queryForList(sql, paramMap, Long.class);
     }
 
     public UserEntity getUserById(Long id){

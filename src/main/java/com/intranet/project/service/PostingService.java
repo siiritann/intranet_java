@@ -71,6 +71,17 @@ public class PostingService {
         return postingResponseFullList;
     }
 
+    public List<PostingResponseFull> getPostingsListByUsername(String username) {
+        List<Long> userIds = userRepository.getUserIdListByUsername(username);
+        List<PostingEntity> postingEntityList = postingRepository.getDifferentUsersPostings(userIds);
+        List<PostingResponseFull> postingResponseFullList = new ArrayList<>();
+        for(PostingEntity item: postingEntityList){
+            PostingResponseFull postingResponseFull = postingEntityToResponseFull(item);
+            postingResponseFullList.add(postingResponseFull);
+        }
+        return postingResponseFullList;
+    }
+
     public List<PostingResponseFull> getUserPostings(String username) {
         Long userId = userRepository.getUserIdByUsername(username);
         List<PostingEntity> postingEntityList = postingRepository.getUserPostings(userId);
