@@ -7,14 +7,16 @@ import com.intranet.project.service.UserService;
 import com.intranet.project.service.classes.UpdatePassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 @CrossOrigin
@@ -54,15 +56,12 @@ public class UserController {
         //MyUser userDetails = (MyUser) authentication.getPrincipal();
     }
 
-//    @GetMapping("/image/{userId}")
-//    public void getImageById(@PathVariable("userId") Long userId, HttpServletResponse response){
-//
-//        File file = new File (userService.getImageById(userId));
-//        response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
-//        response.setContentType(file.getContentType());
-//        response.setContentLength(file.getData().length);
-//        response.getOutputStream().write(file.getData());
-//    }
+    @GetMapping("/image/{userId}")
+    public void getImageById(@PathVariable("userId") Long userId,
+                             HttpServletResponse response) throws IOException, SQLException {
+
+       userService.getImageById(userId, response);
+    }
 
     @GetMapping("/view/basic")
     public BasicUser basicUser(Authentication authentication) {
