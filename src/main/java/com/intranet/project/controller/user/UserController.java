@@ -3,6 +3,7 @@ package com.intranet.project.controller.user;
 import com.intranet.project.controller.classes.ResponseJSON;
 import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.security.MyUser;
+import com.intranet.project.service.EmailService;
 import com.intranet.project.service.UserService;
 import com.intranet.project.service.classes.UpdatePassword;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
+import javax.mail.Session;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -27,6 +30,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/create")
     public Long createUser(@RequestBody UserCreation userCreation){
@@ -101,5 +106,12 @@ public class UserController {
     @PostMapping("/login")
     public String loginUser(@RequestBody UserCreation userCreation){
         return userService.loginUser(userCreation);
+    }
+
+
+    // TODO
+    @GetMapping("/email")
+    public void sendEmailEndpoint() throws MessagingException {
+        emailService.sendEmail(emailService.createSession(), "email@placeholder.com");
     }
 }
