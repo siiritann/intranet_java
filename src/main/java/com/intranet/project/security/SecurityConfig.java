@@ -19,7 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/","/register", "/user/login", "/user/create").permitAll() // juhul kui päring tehakse /home pihta luba sinna kõik ligi
+                .antMatchers("/","/register", "/user/login", "/user/create",
+                        "/user/resetpw", "/user/forgotpw").permitAll() // juhul kui päring tehakse /home pihta luba sinna kõik ligi
                 .anyRequest().authenticated()/*.permitAll()*/ // kõik muud päringud peavad olema kasutaja audenditud
                 .and()
                 .addFilterBefore(new JwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

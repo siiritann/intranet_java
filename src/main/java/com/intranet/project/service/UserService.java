@@ -130,4 +130,8 @@ public class UserService {
         userRepository.postImage(bytes, userId);
     }
 
+    public Long getUserIdByEmail(String email){
+        return userRepository.getUserIdByEmail(email);
+    }
+
 }

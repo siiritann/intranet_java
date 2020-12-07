@@ -144,4 +144,40 @@ public class UserRepository {
         jdbcTemplate.update(sql, paramMap);
     }
 
+    public Long getUserIdByEmail(String email) {
+        String sql = "SELECT id FROM intranetuser WHERE email = :email";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("email", email);
+        return jdbcTemplate.queryForObject(sql, paramMap, Long.class);
+    }
+
+
+    public int saveUUIDToBase(Long userId, String uuid){
+        String sql = "UPDATE intranetuser SET reset_uuid = :uuid WHERE id = :userId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userId", userId);
+        paramMap.put("uuid", uuid);
+        return jdbcTemplate.update(sql, paramMap);
+    }
+
+    public int removeUUID(Long userId){
+        String sql = "UPDATE intranetuser SET reset_uuid = null WHERE id = :userId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userId", userId);
+        return jdbcTemplate.update(sql, paramMap);
+    }
+
+
+    public Long getUserIdForUUID(String uuid) {
+        String sql = "SELECT id FROM intranetuser WHERE reset_uuid = :uuid";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("uuid", uuid);
+        try {
+            return jdbcTemplate.queryForObject(sql, paramMap, Long.class);
+        } catch (Exception e) {
+            throw new NotFoundException("Recovery link not found");
+        }
+    }
+
+
 }

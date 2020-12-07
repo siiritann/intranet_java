@@ -161,4 +161,17 @@
                                  referencedColumnNames="id"
                                  onDelete="CASCADE"/>
     </changeSet>
+    <changeSet  author="Siiri"  id="5">
+        <dropColumn tableName="intranetuser" columnName="email"></dropColumn>
+        <addColumn tableName="intranetuser">
+            <column name="email" type="varchar(254)">
+                <constraints nullable="false" primaryKey="false" unique="true"/>
+            </column>
+        </addColumn>
+        <addColumn tableName="intranetuser">
+            <column name="reset_uuid" type="text">
+                <constraints  nullable="true" primaryKey="false" unique="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>
