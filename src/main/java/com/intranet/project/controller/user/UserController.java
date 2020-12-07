@@ -109,7 +109,7 @@ public class UserController {
     public void forgotPassword(@RequestParam("email") String email) throws MessagingException {
         String uuid = UUID.randomUUID().toString();
         resetPasswordService.saveUUIDToBase(userService.getUserIdByEmail(email), uuid);
-        String url = "http://localhost:8080/user/resetpw?q=" + uuid;
+        String url = "http://localhost:8081/resetpw?q=" + uuid;
         resetPasswordService.sendEmail(resetPasswordService.createSession(), email, url);
     }
 
