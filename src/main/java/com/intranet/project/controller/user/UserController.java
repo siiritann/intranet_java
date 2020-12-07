@@ -43,17 +43,16 @@ public class UserController {
         return userService.viewUser(id);
     }
 
-    @PostMapping("/image/post/{userId}")
-    public void postImage(@PathVariable("userId") Long userId,
-                          @RequestParam("photos") MultipartFile file) throws IOException{
+    @PostMapping("/image/post")
+    public void postImage(@RequestParam("photos") MultipartFile file, Authentication authentication) throws IOException{
         try {
             byte[] bytes = file.getBytes();
-            userService.postImage(bytes, userId);
+            MyUser userDetails = (MyUser) authentication.getPrincipal();
+            userService.postImage(bytes, userDetails.getId());
         } catch(IOException e){
             System.out.println("got IOException");
             System.out.println(e);
         }
-        //MyUser userDetails = (MyUser) authentication.getPrincipal();
     }
 
     @GetMapping("/image/{userId}")
@@ -61,6 +60,13 @@ public class UserController {
                              HttpServletResponse response) throws IOException, SQLException {
 
        userService.getImageById(userId, response);
+    }
+
+    @GetMapping("/image")
+    public void getImage(HttpServletResponse response, Authentication authentication) throws IOException, SQLException {
+        MyUser userDetails = (MyUser) authentication.getPrincipal();
+        Long userId = userDetails.getId();
+        userService.getImageById(userId, response);
     }
 
     @GetMapping("/view/basic")
@@ -96,5 +102,11 @@ public class UserController {
     @PostMapping("/login")
     public String loginUser(@RequestBody UserCreation userCreation){
         return userService.loginUser(userCreation);
+    }
+
+    @DeleteMapping("/image/delete")
+    public ResponseJSON deleteImage(Authentication authentication){
+        MyUser userDetails = (MyUser) authentication.getPrincipal();
+        return new ResponseJSON(userService.deleteImage(userDetails.getId()));
     }
 }

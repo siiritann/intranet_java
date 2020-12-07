@@ -125,4 +125,8 @@ public class UserService {
     public void postImage(byte[] bytes, long userId) {
         userRepository.postImage(bytes, userId);
     }
+
+    public String deleteImage(Long id) {
+        return userRepository.deleteImage(id);
+    }
 }

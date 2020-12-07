@@ -9,6 +9,10 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -127,15 +131,37 @@ public class UserRepository {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userId", userId);
         List<Image> resultList = jdbcTemplate.query(sql, paramMap, new ImageRowMapper());
-        return resultList.get(0).getImage();
-
+        if(resultList.size() > 0){
+            return resultList.get(0).getImage();
+        } else {
+            File file = new File("src/main/resources/images/avatar.jpg");
+            BufferedImage image = ImageIO.read(file);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", baos );
+            return baos.toByteArray();
+        }
     }
 
     public void postImage(byte[] bytes, long userId) {
-        String sql = "INSERT INTO image (user_id, picture) VALUES (:userId, :bytes)";
+        String sqlOverwrite = "UPDATE image SET picture = :bytes WHERE user_id = :userId";
+
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userId", userId);
         paramMap.put("bytes", bytes);
-        jdbcTemplate.update(sql, paramMap);
+
+        if(jdbcTemplate.update(sqlOverwrite, paramMap) == 0){
+            String sql = "INSERT INTO image (user_id, picture) VALUES (:userId, :bytes)";
+            jdbcTemplate.update(sql, paramMap);
+        }
+    }
+
+    public String deleteImage(Long userId) {
+        String sql = "DELETE FROM image WHERE user_id = :userId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userId", userId);
+        if(jdbcTemplate.update(sql, paramMap) > 0){
+            return "Image deleted";
+        }
+        return "Image delete failed";
     }
 }
