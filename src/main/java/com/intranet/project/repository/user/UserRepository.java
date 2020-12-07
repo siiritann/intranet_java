@@ -160,7 +160,7 @@ public class UserRepository {
         }
     }
 
-    public String deleteImage(Long userId) {
+    public String deleteImages(Long userId) {
         String sql = "DELETE FROM image WHERE user_id = :userId";
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("userId", userId);
