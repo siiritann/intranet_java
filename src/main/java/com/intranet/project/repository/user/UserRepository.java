@@ -89,6 +89,11 @@ public class UserRepository {
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.query(sql, paramMap, new UserRowMapper());
     }
+    public List<String> getListOfUsernames() {
+        String sql = "SELECT username FROM intranetuser";
+        Map<String, Object> paramMap = new HashMap<>();
+        return jdbcTemplate.queryForList(sql, paramMap, String.class);
+    }
 
     public UserEntity viewUser(Long id) {
         String sql = "SELECT * FROM intranetuser WHERE id = :id";
@@ -164,4 +169,5 @@ public class UserRepository {
         }
         return "Image delete failed";
     }
+
 }

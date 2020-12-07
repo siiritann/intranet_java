@@ -38,6 +38,11 @@ public class UserController {
         return userService.getListOfUsers();
     }
 
+    @GetMapping("/list/usernames")
+    public List<String> getListOfUsernames() {
+        return userService.getListOfUsernames();
+    }
+
     @GetMapping("/view/{id}")
     public ViewUser viewUser(@PathVariable("id") Long id) {
         return userService.viewUser(id);

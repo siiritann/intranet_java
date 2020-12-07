@@ -44,6 +44,10 @@ public class UserService {
         return userRepository.getListOfUsers();
     }
 
+    public List<String> getListOfUsernames() {
+        return userRepository.getListOfUsernames();
+    }
+
     public ViewUser viewUser(Long id) {
         UserEntity userEntity = userRepository.viewUser(id);
         String username = userEntity.getUsername();
