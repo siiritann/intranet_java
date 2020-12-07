@@ -110,8 +110,8 @@ public class UserController {
     }
 
     @DeleteMapping("/image/delete")
-    public ResponseJSON deleteImage(Authentication authentication){
+    public ResponseJSON deleteImages(Authentication authentication){
         MyUser userDetails = (MyUser) authentication.getPrincipal();
-        return new ResponseJSON(userService.deleteImage(userDetails.getId()));
+        return new ResponseJSON(userService.deleteImages(userDetails.getId()));
     }
 }
