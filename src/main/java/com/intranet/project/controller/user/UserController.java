@@ -3,6 +3,7 @@ package com.intranet.project.controller.user;
 import com.intranet.project.controller.classes.ResponseJSON;
 import com.intranet.project.repository.user.UserEntity;
 import com.intranet.project.security.MyUser;
+import com.intranet.project.service.ResetPasswordService;
 import com.intranet.project.service.UserService;
 import com.intranet.project.service.classes.UpdatePassword;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,14 +11,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.UUID;
 
 @CrossOrigin
 @RestController
@@ -27,6 +26,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ResetPasswordService resetPasswordService;
 
     @PostMapping("/create")
     public Long createUser(@RequestBody UserCreation userCreation){
@@ -114,4 +115,20 @@ public class UserController {
         MyUser userDetails = (MyUser) authentication.getPrincipal();
         return new ResponseJSON(userService.deleteImages(userDetails.getId()));
     }
+
+
+    @PostMapping("/forgotpw")
+    public void forgotPassword(@RequestParam("email") String email) throws MessagingException {
+        String uuid = UUID.randomUUID().toString();
+        resetPasswordService.saveUUIDToBase(userService.getUserIdByEmail(email), uuid);
+        String url = "http://localhost:8081/resetpw?q=" + uuid;
+        resetPasswordService.sendEmail(resetPasswordService.createSession(), email, url);
+    }
+
+    @PostMapping("/resetpw")
+    public String resetPassword(@RequestParam("q") String uuid,
+                                @RequestBody String pw){
+        return resetPasswordService.resetUserPw(uuid, pw);
+    }
+
 }
