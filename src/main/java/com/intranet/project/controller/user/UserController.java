@@ -127,8 +127,8 @@ public class UserController {
 
     @PostMapping("/resetpw")
     public String resetPassword(@RequestParam("q") String uuid,
-                                @RequestBody String pw){
-        return resetPasswordService.resetUserPw(uuid, pw);
+                                @RequestBody String password){
+        return resetPasswordService.resetUserPw(uuid, password);
     }
 
 }
