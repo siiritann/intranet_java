@@ -110,8 +110,9 @@ public class UserService {
         if (!validate(username, password)){
             throw new NotFoundException("Wrong password");
         }
+        Boolean isAdmin = userRepository.checkIfAdmin(id);
         Jwt jwt = new Jwt();
-        return jwt.getBearerToken(id, username);
+        return jwt.getBearerToken(id, username, isAdmin);
     }
 
     public boolean validate(String username, String rawPassword){

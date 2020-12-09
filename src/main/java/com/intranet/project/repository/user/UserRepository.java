@@ -86,6 +86,13 @@ public class UserRepository {
         return jdbcTemplate.queryForObject(sql, paramMap, String.class);
     }
 
+    public Long getUserIdByEmail(String email) {
+        String sql = "SELECT id FROM intranetuser WHERE email = :email";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("email", email);
+        return jdbcTemplate.queryForObject(sql, paramMap, Long.class);
+    }
+
     public List<UserEntity> getListOfUsers(){
         String sql = "SELECT * FROM intranetuser";
         Map<String, Object> paramMap = new HashMap<>();
@@ -95,6 +102,13 @@ public class UserRepository {
         String sql = "SELECT username FROM intranetuser";
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.queryForList(sql, paramMap, String.class);
+    }
+
+    public boolean checkIfAdmin(Long id) {
+        String sql = "SELECT is_admin FROM intranetuser WHERE id = :id";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("id", id);
+        return jdbcTemplate.queryForObject(sql, paramMap, Boolean.class);
     }
 
     public UserEntity viewUser(Long id) {
@@ -170,13 +184,6 @@ public class UserRepository {
             return "Image deleted";
         }
         return "Image delete failed";
-    }
-
-    public Long getUserIdByEmail(String email) {
-        String sql = "SELECT id FROM intranetuser WHERE email = :email";
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("email", email);
-        return jdbcTemplate.queryForObject(sql, paramMap, Long.class);
     }
 
 

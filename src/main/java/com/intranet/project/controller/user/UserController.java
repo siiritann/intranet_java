@@ -85,8 +85,6 @@ public class UserController {
     @GetMapping("/view")
     public ViewUser viewUser(Authentication authentication) {
         MyUser userDetails = (MyUser) authentication.getPrincipal();
-        System.out.println(userDetails.getId());
-        System.out.println(userDetails.getUsername());
         return userService.viewUser(userDetails.getId());
     }
 
