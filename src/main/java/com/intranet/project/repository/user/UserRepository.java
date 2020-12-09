@@ -26,14 +26,16 @@ public class UserRepository {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     public Long createUser(UserEntity userEntity) {
-        String sql = "INSERT INTO intranetuser (username, password, email, is_admin) VALUES (:username, :password, :email, false)";
+        String sql = "INSERT INTO intranetuser (username, password, email, is_admin) VALUES (:username, :password, :email, :admin)";
         Map<String, Object> paramMap = new HashMap<>();
         String username = userEntity.getUsername();
         String password = userEntity.getPassword();
         String email = userEntity.getEmail();
+        Boolean admin = userEntity.getIsAdmin();
         paramMap.put("username", username);
         paramMap.put("password", password);
         paramMap.put("email", email);
+        paramMap.put("admin", admin);
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(sql, new MapSqlParameterSource(paramMap), keyHolder);

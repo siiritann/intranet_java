@@ -26,6 +26,13 @@ public class UserEntity {
         this.email = email;
     }
 
+    public UserEntity(String username, String password, String email, Boolean isAdmin) {
+        // for user creation, needed fields
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.isAdmin = isAdmin;
+    }
     public String getFirstName() {
         return firstName;
     }

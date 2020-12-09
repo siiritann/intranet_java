@@ -36,8 +36,14 @@ public class UserService {
         String username = userCreation.getUsername();
         String password = savePassword(userCreation.getPassword());
         String email = userCreation.getEmail();
-        UserEntity userEntity = new UserEntity(username, password, email);
-        return userRepository.createUser(userEntity);
+        if(userRepository.getListOfUsers().isEmpty()){
+            UserEntity userEntity = new UserEntity(username, password, email, true);
+            return userRepository.createUser(userEntity);
+        } else {
+            UserEntity userEntity = new UserEntity(username, password, email);
+            return userRepository.createUser(userEntity);
+        }
+
     }
 
     public List<UserEntity> getListOfUsers(){
