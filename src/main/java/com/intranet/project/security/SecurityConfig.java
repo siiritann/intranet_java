@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/","/register", "/user/login", "/user/create",
-                        "/user/resetpw", "/user/forgotpw").permitAll() // juhul kui päring tehakse /home pihta luba sinna kõik ligi
+                        "/user/resetpw", "/user/forgotpw", "/css/**", "/img/**", "/js/**", "/favicon.ico", "/main.js", "/style.css").permitAll() // juhul kui päring tehakse /home pihta luba sinna kõik ligi
                 .anyRequest().authenticated()/*.permitAll()*/ // kõik muud päringud peavad olema kasutaja audenditud
                 .and()
                 .addFilterBefore(new JwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
