@@ -215,4 +215,10 @@ public class UserRepository {
     }
 
 
+    public void updateUserRole(long userId) {
+        String sql = "UPDATE intranetuser SET is_admin = true WHERE id = :userId";
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("userId", userId);
+        jdbcTemplate.update(sql, paramMap);
+    }
 }

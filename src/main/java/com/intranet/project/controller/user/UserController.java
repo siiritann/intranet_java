@@ -129,4 +129,10 @@ public class UserController {
         return resetPasswordService.resetUserPw(uuid, password);
     }
 
+    @PostMapping("/updaterole/{adminId}/{userId}")
+    public void updateUserRole(@PathVariable("adminId") long adminId,
+                              @PathVariable("userId") long userId){
+        userService.updateUserRole(adminId, userId);
+    }
+
 }

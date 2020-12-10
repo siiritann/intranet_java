@@ -2,6 +2,7 @@ package com.intranet.project.service;
 
 import com.intranet.project.controller.user.UserCreation;
 import com.intranet.project.controller.user.ViewUser;
+import com.intranet.project.exceptions.BadRequestException;
 import com.intranet.project.exceptions.InternalServerErrorException;
 import com.intranet.project.exceptions.NotFoundException;
 import com.intranet.project.repository.post.PostingRepository;
@@ -141,6 +142,18 @@ public class UserService {
     }
     public Long getUserIdByEmail(String email){
         return userRepository.getUserIdByEmail(email);
+    }
+
+    public void updateUserRole(Long adminId, Long userId) {
+        if (adminId.equals(userId)) {
+            throw new BadRequestException("Can't change role for yourself");
+        } else if (!userRepository.checkIfAdmin(adminId)) {
+            throw new BadRequestException("Not enough permissions");
+        } else if (userRepository.checkIfAdmin(userId)) {
+            throw new BadRequestException("This user already is admin");
+        } else {
+            userRepository.updateUserRole(userId);
+        }
     }
 
 }
