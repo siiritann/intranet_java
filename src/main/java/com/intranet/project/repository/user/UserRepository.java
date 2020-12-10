@@ -94,7 +94,7 @@ public class UserRepository {
     }
 
     public List<UserEntity> getListOfUsers(){
-        String sql = "SELECT * FROM intranetuser";
+        String sql = "SELECT * FROM intranetuser ORDER BY username";
         Map<String, Object> paramMap = new HashMap<>();
         return jdbcTemplate.query(sql, paramMap, new UserRowMapper());
     }
