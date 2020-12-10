@@ -129,7 +129,6 @@ public class UserService {
         response.setHeader("Content-Disposition", "attachment; filename=\"" + "picture.jpg" + "\"");
         response.setContentType("image/jpg");
         // TODO baasi salvestada fail size ja byte arraysse lugeda faili täpne suurus
-        response.setContentLength(test.length);
         response.getOutputStream().write(test);
     }
 
