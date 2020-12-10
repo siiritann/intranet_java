@@ -87,7 +87,7 @@ public class UserService {
                 throw new InternalServerErrorException("Changing password failed");
             }
         } else {
-            return "Wrong password";
+            throw new InternalServerErrorException("Wrong password");
         }
     }
 
